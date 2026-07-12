@@ -1,0 +1,38 @@
+---
+
+- hosts: all 
+  become: true
+  tasks:
+
+  - name: install updates (Rocky)
+    tags: always
+    dnf:
+      update_only: yes
+      update_cache: yes
+    when: ansible_distribution == "Rocky"
+
+
+- hosts: web_servers
+  become: true
+  tasks:
+
+  - name: install httpd and docker package (Rocky)
+    tags: rocky,httpd,web
+    dnf:
+      name:
+        - httpd
+        - docker
+      state: latest
+    when: ansible_distribution == "Rocky"
+
+
+- hosts: db_servers
+  become: true
+  tasks:
+
+  - name: install mariadb package (Rocky)
+    tags: db,,mariadb,rocky
+    dnf:
+      name: mariadb
+      state: latest
+    when: ansible_distribution == "Rocky"
