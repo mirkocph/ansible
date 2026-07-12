@@ -7,13 +7,16 @@
   - name: update repository
     dnf: 
       update_cache: yes
+    when: ansible_distribution == "Rocky"
 
   - name: install httpd package
     dnf:
       name: httpd
       state: latest
+    when: ansible_distribution == "Rocky"
 
   - name: install docker
     dnf:
       name: docker
       state: latest
+    when: ansible_distribution == "Rocky"
